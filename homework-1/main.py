@@ -1,4 +1,10 @@
 from src.item import Item
+""" 
+В последней строке выдаёт 
+[<src.item.Item object at 0x00000274AE4DEF10>, <src.item.Item object at 0x00000274AE4DF2D0>]
+так как Item был импортирован, если бы он находился в этом файле, то выдалось бы как написано
+внизу с __main__
+"""
 
 if __name__ == '__main__':
     item1 = Item("Смартфон", 10000, 20)
