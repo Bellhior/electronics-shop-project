@@ -16,6 +16,37 @@ def test_apply_discount():
     assert Item("Ноутбук", 20000, 5).price*Item("Ноутбук", 20000, 5).pay_rate == 16000.0
 
 
+# TestCase3
+def test_name():
+    item2 = Item('Монитор', 20000, 2)
+
+# длина наименования товара меньше 10 символов
+    assert item2.name == 'Монитор'
+
+# длина наименования товара больше 10 символов
+    item2.name = 'МониторМощный'
+    assert item2.name == 'МониторМощ'
+
+
+# TestCase4
+def test_instantiate_from_csv():
+    Item.instantiate_from_csv()  # создание объектов из данных файла
+    assert len(Item.all) == 5  # в файле 5 записей с данными по товарам
+    item1 = Item.all[1]
+    assert item1.name == 'Ноутбук'
+    item2 = Item.all[4]
+    assert item2.price == 75
+    item3 = Item.all[0]
+    assert item3.quantity == 1
+
+
+# TestCase5
+def test_string_to_number():
+    assert Item.string_to_number('55') == 55
+    assert Item.string_to_number('45.0') == 45
+    assert Item.string_to_number('3.53452352') == 3
+
+
 """
 Хотел сделать тест на занесение в список, но на выходе у объектов разные коды, 
 поэтому на данном этапе не вижу возможности это протестировать
