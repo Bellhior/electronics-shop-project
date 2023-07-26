@@ -1,4 +1,5 @@
 import csv
+import os
 
 
 class Item:
@@ -28,11 +29,20 @@ class Item:
            Класс-метод, инициализирующий экземпляры класса `Item`
            данными из файла _src/items.csv
         """
-        with open('items.csv', newline='') as csvfile:
+
+        csv_import = os.path.join(os.path.dirname(__file__), "items.csv")
+        cls.all.clear()
+
+        with open(csv_import, newline='') as csvfile:
             reader = csv.DictReader(csvfile)
-            for row in reader:
-                print(row['name'], row['price'], row['quantity'])
-                cls.all.append(cls(row['name'], row['price'], row['quantity']))
+            # for row in reader:
+            # print(row['name'], row['price'], row['quantity']) Так можно вывести весь список
+            for thing in reader:
+                name = thing['name']
+                price = cls.string_to_number(thing['price'])
+                quantity = cls.string_to_number(thing['quantity'])
+                cls(name, price, quantity)
+            # print(len(cls.all))
 
     @property
     def name(self):
@@ -40,7 +50,7 @@ class Item:
 
     @name.setter
     def name(self, new_name):
-        """Возвращает число из числа-строки"""
+        """Показывает первые 10 символов в названии"""
         if len(new_name) > 10:
             new_name = new_name[:10]
         self.__name = new_name
