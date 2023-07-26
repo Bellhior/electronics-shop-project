@@ -33,10 +33,9 @@ class Item:
         csv_import = os.path.join(os.path.dirname(__file__), "items.csv")
         cls.all.clear()
 
-        with open(csv_import, newline='') as csvfile:
-            reader = csv.DictReader(csvfile)
-            # for row in reader:
+        with open(csv_import, newline='') as csvfile:  # encoding='windows-1251', у меня корректно изначально
             # print(row['name'], row['price'], row['quantity']) Так можно вывести весь список
+            reader = csv.DictReader(csvfile)
             for thing in reader:
                 name = thing['name']
                 price = cls.string_to_number(thing['price'])
