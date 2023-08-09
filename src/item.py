@@ -51,6 +51,7 @@ class Item:
     def name(self, new_name):
         """Показывает первые 10 символов в названии"""
         if len(new_name) > 10:
+            # raise Exception("Слишком длинное название") - это если выдавать ошибку
             new_name = new_name[:10]
         self.__name = new_name
 
