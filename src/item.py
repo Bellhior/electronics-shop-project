@@ -20,7 +20,6 @@ class Item:
         self.__name = name
         self.price = price
         self.quantity = quantity
-        self.total_price = self.price * self.quantity
         self.all.append(self)
 
     @classmethod
@@ -67,7 +66,7 @@ class Item:
 
         :return: Общая стоимость товара.
         """
-        return self.total_price
+        return self.price * self.quantity
 
     def apply_discount(self) -> None:
         """
