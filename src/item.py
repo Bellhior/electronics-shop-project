@@ -26,38 +26,36 @@ class Item:
     def instantiate_from_csv(cls):
         """
            Класс-метод, инициализирующий экземпляры класса `Item`
-           данными из файла _src/items.csv
+           данными из файла src/items.csv
         """
-
         csv_import = os.path.join(os.path.dirname(__file__), "items.csv")
         cls.all.clear()
-
         with open(csv_import, newline='') as csvfile:  # encoding='windows-1251', у меня корректно изначально
-            # print(row['name'], row['price'], row['quantity']) Так можно вывести весь список
             reader = csv.DictReader(csvfile)
+            thing: dict
             for thing in reader:
                 name = thing['name']
                 price = cls.string_to_number(thing['price'])
                 quantity = cls.string_to_number(thing['quantity'])
                 cls(name, price, quantity)
-            # print(len(cls.all))
 
     @property
-    def name(self):
+    def name(self) -> str:
+        """Получает название товара"""
         return self.__name
 
     @name.setter
-    def name(self, new_name):
+    def name(self, new_name) -> None:
         """Показывает первые 10 символов в названии"""
-        if len(new_name) > 10:
-            # raise Exception("Слишком длинное название") - это если выдавать ошибку
-            new_name = new_name[:10]
-        self.__name = new_name
+        # if len(new_name) > 10: - можно вызвать ошибку
+        # raise Exception("Длина наименования товара превышает 10 символов.")
+        self.__name = new_name[:10]
 
     @staticmethod
-    def string_to_number(string):
+    def string_to_number(string: str) -> int:
         """Возвращает число из числа-строки"""
-        if string[0].isdigit():
+        # if string[0].isdigit():
+        if string.replace(".", "").isdigit():
             return int(float(string))
 
     def calculate_total_price(self) -> float:
