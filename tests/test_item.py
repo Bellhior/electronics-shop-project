@@ -27,7 +27,8 @@ def test_apply_discount(item_1, item_2):
 
 
 # TestCase4
-def test_get_instance_list():
+def test_add_to_list():
+    """Проверка на добавление в список all"""
     Item.all = []
     item_3 = Item('Планшет', 15000, 35)
     assert len(item_3.all) == 1
