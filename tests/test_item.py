@@ -4,19 +4,40 @@ from src.item import Item
 
 
 # TestCase1
-def test_calculate_total_price():
-    assert Item.calculate_total_price(Item("Смартфон", 10000, 20)) == 200000
-    assert Item.calculate_total_price(Item("Ноутбук", 20000, 5)) == 100000
+def test_item(item_1, item_2):
+    assert item_1.name == "Смартфон"
+    assert item_1.price == 10500
+    assert item_1.quantity == 20
+    assert item_2.name == "Ноутбук"
+    assert item_2.price == 28000
+    assert item_2.quantity == 5
 
 
 # TestCase2
-def test_apply_discount():
-    Item.pay_rate = 0.8
-    assert Item("Смартфон", 10000, 20).price*Item("Смартфон", 10000, 20).pay_rate == 8000.0
-    assert Item("Ноутбук", 20000, 5).price*Item("Ноутбук", 20000, 5).pay_rate == 16000.0
+def test_calculate_total_price(item_1, item_2):
+    assert item_1.calculate_total_price() == 210000
+    assert item_2.calculate_total_price() == 140000
 
 
 # TestCase3
+def test_apply_discount(item_1, item_2):
+    Item.pay_rate = 0.5
+    assert item_1.apply_discount() == 5250.0
+    assert item_2.apply_discount() == 14000.0
+
+
+# TestCase4
+def test_get_instance_list():
+    Item.all = []
+    item_3 = Item('Планшет', 15000, 35)
+    assert len(item_3.all) == 1
+    assert isinstance(Item.all[0], Item)
+    item_4 = Item('Флешка', 500, 40)
+    assert len(item_4.all) == 2
+    assert isinstance(item_4.all[1], Item)
+
+
+# TestCase5
 def test_name():
     item2 = Item('Монитор', 20000, 2)
 
@@ -28,7 +49,7 @@ def test_name():
     assert item2.name == 'МониторМощ'
 
 
-# TestCase4
+# TestCase6
 def test_instantiate_from_csv():
     Item.instantiate_from_csv()  # создание объектов из данных файла
     assert len(Item.all) == 5  # в файле 5 записей с данными по товарам
@@ -40,19 +61,8 @@ def test_instantiate_from_csv():
     assert item3.quantity == 1
 
 
-# TestCase5
+# TestCase7
 def test_string_to_number():
     assert Item.string_to_number('55') == 55
     assert Item.string_to_number('45.0') == 45
     assert Item.string_to_number('3.53452352') == 3
-
-
-"""
-Хотел сделать тест на занесение в список, но на выходе у объектов разные коды, 
-поэтому на данном этапе не вижу возможности это протестировать
-"""
-Item("Смартфон", 10000, 20)
-Item("Ноутбук", 20000, 5)
-# assert Item.all == [Item("Смартфон", 10000, 20), Item("Ноутбук", 20000, 5)]
-print(Item.all)
-print([Item("Смартфон", 10000, 20), Item("Ноутбук", 20000, 5)])
