@@ -39,15 +39,11 @@ def test_add_to_list():
 
 
 # TestCase5
-def test_name():
-    item2 = Item('Монитор', 20000, 2)
-
-# длина наименования товара меньше 10 символов
-    assert item2.name == 'Монитор'
-
+def test_name(item_2):
+    assert item_2.name == "Ноутбук"
 # длина наименования товара больше 10 символов
-    item2.name = 'МониторМощный'
-    assert item2.name == 'МониторМощ'
+    item_2.name = "МощныйНоутбук"
+    assert item_2.name == "МощныйНоут"
 
 
 # TestCase6
